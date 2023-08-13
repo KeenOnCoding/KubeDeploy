@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '0d8b128d-785f-4893-aa23-6502e040bb40'
   imageRepository: 'kubeapidepl'
   containerRegistry: 'kubedeploycr.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: './Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'kubedeploycr0d9b-auth'
 
