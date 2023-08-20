@@ -1,19 +1,20 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: kubeapidepl 
+  name: kubedeploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kubeapidepl
+      app: kubedeploy
   template:
     metadata:
       labels:
-        app: kubeapidepl 
+        app: kubedeploy
     spec:
       containers:
-        - name: kubeapidepl 
-          image: kubedeploycr.azurecr.io/kubeapidepl
+        - name: kubedeploy 
+          image: kubedeploycr.azurecr.io/kubedeploy
+          imagePullPolicy: Always
           ports:
           - containerPort: 80

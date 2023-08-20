@@ -1,0 +1,58 @@
+https://learn.microsoft.com/en-us/dotnet/architecture/containerized-lifecycle/design-develop-containerized-apps/build-aspnet-core-applications-linux-containers-aks-kubernetes
+
+azlogin
+
+az acr create --name kubedeploycr --resource-group RG_ASK_CLUSTER --sku basic --admin-enabled
+
+az acr list --resource-group RG_ASK_CLUSTER --query "[].{acrLoginServer:loginServer}" --output table
+
+docker build -t webapi .
+
+docker tag webapp:latest kubedeploycr.azurecr.io/webapi:v1
+
+az acr login --name kubedeploycr
+
+docker push kubedeploycr.azurecr.io/webapi:v1
+
+az aks get-credentials --name ass_service --resource-group RG_ASK_CLUSTER
+
+az aks update --name ass_service --resource-group RG_ASK_CLUSTER --attach-acr kubedeploycr
+
+kubectl apply -f deploy-webapi.yml
+
+
+
+kubectl get all
+kubectl get nodes
+kubectl get pods
+kubectl get pods --watch
+kubectl get deployments
+kubectl get pvc
+kubectl get storageclass
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/aws/deploy.yaml
+
+kubectl delete deployment excample-web-api-depl
+docker build -t keenoncoding/excamplewebapi .
+docker push keenoncoding/excamplewebapi
+kubectl apply -f excample-deploy.yaml
+
+docker pull keenoncoding/kubedeployappservice
+
+kubectl get service azure-vote-front --watch //to get the public IP of the load balancer:
+kubectl rollout restart deployment app-depl
+
+
+code azure-vote.yaml
+cat azure-vote.yaml
+
+kubectl create -f azure-vote.yaml
+kubectl create secret generic mssql --from-literal=SA_PASSWORD="P@ssword123"
+kubectl delete -f azure-vote.yaml
+
+kubectl describe deployment/redis-master - kubectl describe <object><instance-name>
+
+
+
+
+

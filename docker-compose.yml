@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  kubeapidepl:
+    image: ${DOCKER_REGISTRY-}kubeapidepl
+    build:
+      context: .
+      dockerfile: src/server/KubeDeploy.Api/Compose.Dockerfile
